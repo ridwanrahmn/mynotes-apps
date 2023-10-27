@@ -16,8 +16,9 @@ class NotesInput extends React.Component {
 
   onTitleChangeEventHandler(event) {
     const inputLength = event.target.value.length;
+    const maxInputChar = 50;
 
-    if (inputLength <= 50)
+    if (inputLength <= maxInputChar)
       this.setState(() => {
         return {
           title: event.target.value,
@@ -35,10 +36,14 @@ class NotesInput extends React.Component {
 
   onSubmitEventHandler(event) {
     event.preventDefault();
-    this.props.addNotes(this.state);
-    this.setState(() => {
-      return { title: "", body: "" };
-    });
+    if (this.state.body === "" || this.state.title === "") {
+      null;
+    } else {
+      this.props.addNotes(this.state);
+      this.setState(() => {
+        return { title: "", body: "" };
+      });
+    }
   }
 
   render() {
